@@ -21,6 +21,7 @@ LuminaPay/
 ├── src/
 ├── package.json
 └── package-lock.json
+└── index.html
 ```
 3. Ejecutar los comandos:
    git install
