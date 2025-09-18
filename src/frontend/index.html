@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LuminaPay - Dashboard de Pagos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .balances,
+        .history {
+            text-align: left;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .history-item {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>LuminaPay - Pagos</h1>
+
+        <label>Desde Wallet:</label>
+        <select id="from"></select>
+
+        <label>Hacia Wallet:</label>
+        <select id="to"></select>
+
+        <label>Monto:</label>
+        <input type="number" id="amount" value="10">
+
+        <button onclick="transfer()">Transferir</button>
+
+        <div id="msg" class="message"></div>
+
+        <div class="balances">
+            <strong>Balances:</strong>
+            <div id="walletBalances"></div>
+        </div>
+
+        <div class="history">
+            <strong>Historial de Transacciones:</strong>
+            <div id="transactionHistory"></div>
+        </div>
+    </div>
+
+    <script>
+        let wallets = [
+            { id: 0, balance: 100 },
+            { id: 1, balance: 50 },
+            { id: 2, balance: 75 }
+        ];
+
+        let transactions = [];
+
+        function populateWallets() {
+            const fromSelect = document.getElementById('from');
+            const toSelect = document.getElementById('to');
+            fromSelect.innerHTML = '';
+            toSelect.innerHTML = '';
+            wallets.forEach(w => {
+                fromSelect.innerHTML += `<option value="${w.id}">Wallet ${w.id} - ${w.balance}</option>`;
+                toSelect.innerHTML += `<option value="${w.id}">Wallet ${w.id} - ${w.balance}</option>`;
+            });
+        }
+
+        function showBalances() {
+            const balancesDiv = document.getElementById('walletBalances');
+            balancesDiv.innerHTML = wallets.map(w => `Wallet ${w.id}: ${w.balance}`).join('<br>');
+        }
+
+        function showHistory() {
+            const historyDiv = document.getElementById('transactionHistory');
+            historyDiv.innerHTML = transactions.map(t =>
+                `<div class="history-item">De Wallet ${t.from} → Wallet ${t.to}: ${t.amount}</div>`
+            ).join('');
+        }
+
+        function transfer() {
+            const from = +document.getElementById('from').value;
+            const to = +document.getElementById('to').value;
+            const amount = +document.getElementById('amount').value;
+            const msgDiv = document.getElementById('msg');
+
+            if (from === to) {
+                msgDiv.innerText = "No puedes transferir a la misma wallet";
+                msgDiv.style.color = "red";
+                return;
+            }
+            if (amount <= 0) {
+                msgDiv.innerText = "Monto inválido";
+                msgDiv.style.color = "red";
+                return;
+            }
+            if (wallets[from].balance < amount) {
+                msgDiv.innerText = "Saldo insuficiente";
+                msgDiv.style.color = "red";
+                return;
+            }
+
+            // Actualizar balances
+            wallets[from].balance -= amount;
+            wallets[to].balance += amount;
+
+            // Registrar transacción
+            transactions.push({ from, to, amount });
+
+            // Actualizar interfaz
+            populateWallets();
+            showBalances();
+            showHistory();
+
+            msgDiv.innerText = "Transferencia exitosa";
+            msgDiv.style.color = "green";
+        }
+
+        // Inicialización
+        populateWallets();
+        showBalances();
+        showHistory();
+    </script>
+</body>
+
+</html>
