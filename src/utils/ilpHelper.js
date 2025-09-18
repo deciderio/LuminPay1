@@ -1,93 +1,51 @@
-// src/helpers/ilpHelper.js
-const axios = require('axios');
-const { getDbConnection } = require('../db/luminaDb'); // función para conectarse a tu SQLite
-
-const ILP_BASE_URL = process.env.ILP_BASE_URL || 'http://localhost:3000';
+// src/utils/ilpHelper.js
 
 /**
- * Crear un payment pointer para un usuario registrado en LuminaPay
- * @param {number} userId
- * @returns {Promise<string>} paymentPointer
+ * Simula el envío de una transferencia a través de Interledger Protocol (ILP).
+ * En un entorno de producción, esta función se conectaría a un conector ILP
+ * como un nodo de Moneyd o un servicio similar, y utilizaría librerías como
+ * ilp-protocol-stream para enviar el pago.
+ *
+ * @param {object} fromWallet - Objeto de la billetera de origen.
+ * @param {string} toPaymentPointer - El Payment Pointer de destino (e.g., $example.com/alice).
+ * @param {number} amount - El monto a enviar.
+ * @param {string} currency - La moneda de la transferencia.
+ * @returns {Promise<object>} Una promesa que resuelve con un objeto de transferencia simulada.
  */
-async function createPaymentPointer(userId) {
-    try {
-        // Primero, verifica que el usuario exista en la DB
-        const db = getDbConnection();
-        const user = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
+exports.sendIlpTransfer = async (fromWallet, toPaymentPointer, amount, currency) => {
+    console.log(`[ILP] Simulando transferencia de ${amount} ${currency} de la billetera ${fromWallet.id} a ${toPaymentPointer}`);
 
-        if (!user) throw new Error(`Usuario con ID ${userId} no encontrado.`);
+    // En un entorno real, se realizarían las siguientes acciones:
+    // 1. Conexión al conector ILP.
+    // 2. Autenticación con el conector.
+    // 3. Envío del paquete de pago ILP.
+    // 4. Esperar la confirmación del pago o la falla.
 
-        // Llamada al endpoint ILP
-        const response = await axios.post(`${ILP_BASE_URL}/payment_pointers`, { userId });
-        const paymentPointer = response.data.paymentPointer;
-
-        // Guarda el payment pointer en la DB de LuminaPay
-        db.prepare('INSERT INTO payment_pointers (user_id, pointer) VALUES (?, ?)').run(userId, paymentPointer);
-
-        return paymentPointer;
-    } catch (error) {
-        console.error('[ILP Helper] Error creando payment pointer:', error.message);
-        throw error;
-    }
-}
+    // Simulación de una operación asíncrona exitosa.
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const transferId = `transfer_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            console.log(`[ILP] Transferencia simulada completada con ID: ${transferId}`);
+            resolve({
+                id: transferId,
+                status: 'fulfilled',
+                amount: amount,
+                currency: currency,
+                destination: toPaymentPointer
+            });
+        }, 2000); // Retraso de 2 segundos para simular latencia de red.
+    });
+};
 
 /**
- * Obtener balance de un wallet de LuminaPay
- * @param {number} walletId
- * @returns {Promise<number>} balance
+ * Genera un Payment Pointer para una billetera.
+ * En un entorno real, la lógica de generación podría ser más compleja
+ * y estar vinculada al conector ILP y al dominio del servicio.
+ *
+ * @param {number} walletId - ID de la billetera.
+ * @returns {string} El Payment Pointer generado.
  */
-async function getBalance(walletId) {
-    try {
-        const db = getDbConnection();
-        const wallet = db.prepare('SELECT * FROM wallets WHERE id = ?').get(walletId);
-
-        if (!wallet) throw new Error(`Wallet con ID ${walletId} no encontrado.`);
-
-        // Suponiendo que tu ILP connector tiene endpoint para balance
-        const response = await axios.get(`${ILP_BASE_URL}/wallets/${walletId}/balance`);
-        return response.data.balance;
-    } catch (error) {
-        console.error('[ILP Helper] Error obteniendo balance:', error.message);
-        throw error;
-    }
-}
-
-/**
- * Enviar transferencia ILP
- * @param {number} fromWalletId
- * @param {string} toPaymentPointer
- * @param {number} amount
- * @returns {Promise<Object>} resultado de la transferencia
- */
-async function sendTransfer(fromWalletId, toPaymentPointer, amount) {
-    try {
-        const db = getDbConnection();
-        const wallet = db.prepare('SELECT * FROM wallets WHERE id = ?').get(fromWalletId);
-
-        if (!wallet) throw new Error(`Wallet con ID ${fromWalletId} no encontrado.`);
-        if (amount <= 0) throw new Error('El monto debe ser mayor a 0');
-
-        const response = await axios.post(`${ILP_BASE_URL}/transfers`, {
-            fromWalletId,
-            toPaymentPointer,
-            amount
-        });
-
-        // Guardar transferencia en la DB
-        db.prepare(
-            `INSERT INTO transactions (from_wallet_id, to_pointer, amount, status, created_at)
-             VALUES (?, ?, ?, ?, ?)`
-        ).run(fromWalletId, toPaymentPointer, amount, response.data.status, new Date().toISOString());
-
-        return response.data;
-    } catch (error) {
-        console.error('[ILP Helper] Error enviando transferencia:', error.message);
-        throw error;
-    }
-}
-
-module.exports = {
-    createPaymentPointer,
-    getBalance,
-    sendTransfer
+exports.generatePaymentPointer = (walletId) => {
+    const domain = 'lumina.pay'; // Dominio de tu servicio
+    return `$${domain}/${walletId}`;
 };
