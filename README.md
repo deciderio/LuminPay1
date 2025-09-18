@@ -29,37 +29,37 @@ LuminaPay/
 └── package-lock.json
 └── index.html
 ```
-3. ¿Cual es el problema?
-   # Integrar métodos de pago suele ser lento, costoso y poco flexible para comercios pequeños.
-   # Experiencia de pago con fricción que genera abandono del carrito.
-   # Dificultad para añadir nuevos métodos de pago sin reescribir el sistema.
-   # Falta de seguridad y trazabilidad en soluciones existentes.
-4. ¿Cual es la solucion?
-   # Plataforma modular y extensible que permite conectar nuevas pasarelas de pago mediante adaptadores.
-   # Checkout embebible y API pública (REST/GraphQL) para integraciones.
-5. Frontend
-  # html
-  # Javascript
-6. Backend
-  # Node.js + Express/NestJS
-7. Beneficios
-  # Integración rápida y sencilla para comercios.
-  # Escalabilidad gracias a su arquitectura modular.
-  # Menor coste de mantenimiento e integración.
-  # Flexibilidad para añadir nuevos métodos de pago (ej. ILP/Open Payments).
-  # Mayor seguridad y cumplimiento normativo.
-  # Auditoría y trazabilidad de cada transacción.
-8. Arquitectura
-  # Cliente (web/mobile)
-  # API OpenPayments (auth + rate limiting)
-  # Servicios backend
-  # Pagos (orquestador)
-  # Autenticación 
- 9. Funciones indispensables (MVP)
-  # Registro y autenticación de usuarios/comercios.
-  # API REST/GraphQL para crear pagos.
-10. Responsabilidades del equipo
-  # Product Manager: roadmap, requisitos, priorización.
-  # Tech Lead / Arquitecto: diseño de arquitectura, estándares y seguridad.
-  # Backend Engineers (1–2): API, orquestador, DB, adaptadores (Stripe, ILP).
-  # Frontend Engineer (1): dashboard y SDK embebible (checkout).
+3. # ¿Cual es el problema?
+    Integrar métodos de pago suele ser lento, costoso y poco flexible para comercios pequeños.
+    Experiencia de pago con fricción que genera abandono del carrito.
+    Dificultad para añadir nuevos métodos de pago sin reescribir el sistema.
+    Falta de seguridad y trazabilidad en soluciones existentes.
+4. # ¿Cual es la solucion?
+    Plataforma modular y extensible que permite conectar nuevas pasarelas de pago mediante adaptadores.
+    Checkout embebible y API pública (REST/GraphQL) para integraciones.
+5. # Frontend
+   html
+   Javascript
+6. # Backend
+   Node.js + Express/NestJS
+7. # Beneficios
+   Integración rápida y sencilla para comercios.
+   Escalabilidad gracias a su arquitectura modular.
+   Menor coste de mantenimiento e integración.
+   Flexibilidad para añadir nuevos métodos de pago (ej. ILP/Open Payments).
+   Mayor seguridad y cumplimiento normativo.
+   Auditoría y trazabilidad de cada transacción.
+8. # Arquitectura
+   Cliente (web/mobile)
+   API OpenPayments (auth + rate limiting)
+   Servicios backend
+   Pagos (orquestador)
+   Autenticación 
+ 9. # Funciones indispensables (MVP)
+   Registro y autenticación de usuarios/comercios.
+   API REST/GraphQL para crear pagos.
+10. # Responsabilidades del equipo
+   Product Manager: roadmap, requisitos, priorización.
+   Tech Lead / Arquitecto: diseño de arquitectura, estándares y seguridad.
+   Backend Engineers (1–2): API, orquestador, DB, adaptadores (Stripe, ILP).
+   Frontend Engineer (1): dashboard y SDK embebible (checkout).
