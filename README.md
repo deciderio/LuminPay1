@@ -49,4 +49,17 @@ LuminaPay/
   # Flexibilidad para añadir nuevos métodos de pago (ej. ILP/Open Payments).
   # Mayor seguridad y cumplimiento normativo.
   # Auditoría y trazabilidad de cada transacción.
-
+8. Arquitectura
+  # Cliente (web/mobile)
+  # API OpenPayments (auth + rate limiting)
+  # Servicios backend
+  # Pagos (orquestador)
+  # Autenticación 
+ 9. Funciones indispensables (MVP)
+  # Registro y autenticación de usuarios/comercios.
+  # API REST/GraphQL para crear pagos.
+10. Responsabilidades del equipo
+  # Product Manager: roadmap, requisitos, priorización.
+  # Tech Lead / Arquitecto: diseño de arquitectura, estándares y seguridad.
+  # Backend Engineers (1–2): API, orquestador, DB, adaptadores (Stripe, ILP).
+  # Frontend Engineer (1): dashboard y SDK embebible (checkout).
