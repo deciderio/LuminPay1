@@ -12,3 +12,16 @@ Para comenzar con LuminPay1, sigue estos pasos:
    ```bash
    git clone https://github.com/deciderio/LuminPay1.git
    cd LuminPay1
+   git pull origin main
+
+2. Ordenar las carpetas del proyecto de la siguiente manera:
+   
+```
+LuminaPay/
+├── src/
+├── package.json
+└── package-lock.json
+```
+3. Ejecutar los comandos:
+   git install
+   git start
