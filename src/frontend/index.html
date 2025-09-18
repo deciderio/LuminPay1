@@ -1,183 +1,136 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LuminaPay - Dashboard de Pagos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            background: #28a745;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background: #218838;
-        }
-
-        .message {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        .balances,
-        .history {
-            text-align: left;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .history-item {
-            margin-bottom: 5px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuminPay</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="app.js" defer></script>
 </head>
-
 <body>
     <div class="container">
-        <h1>LuminaPay - Pagos</h1>
+        <div class="sidebar">
+            <div>
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-12 h-12 bg-white flex items-center justify-center rounded-full text-blue-600 font-bold text-xl shadow-md">A</div>
+                    <div>
+                        <h2 class="text-xl font-semibold">Plataforma P2P</h2>
+                        <p class="text-blue-200 text-sm">ID: Agente-001</p>
+                    </div>
+                </div>
 
-        <label>Desde Wallet:</label>
-        <select id="from"></select>
+                <div class="mb-8">
+                    <h3 class="text-blue-100 text-sm font-medium uppercase mb-3">Acciones Rápidas</h3>
+                    <button class="w-full text-left p-3 rounded-lg action-button mb-3 font-medium text-lg">
+                        Nuevo Envío P2P
+                    </button>
+                    <button class="w-full text-left p-3 rounded-lg action-button mb-3 font-medium text-lg opacity-80 cursor-not-allowed">
+                        Gestionar Usuarios
+                    </button>
+                    <button class="w-full text-left p-3 rounded-lg action-button font-medium text-lg opacity-80 cursor-not-allowed">
+                        Reportes
+                    </button>
+                </div>
+            </div>
 
-        <label>Hacia Wallet:</label>
-        <select id="to"></select>
-
-        <label>Monto:</label>
-        <input type="number" id="amount" value="10">
-
-        <button onclick="transfer()">Transferir</button>
-
-        <div id="msg" class="message"></div>
-
-        <div class="balances">
-            <strong>Balances:</strong>
-            <div id="walletBalances"></div>
+            <div>
+                <h3 class="text-blue-100 text-sm font-medium uppercase mb-3">Configuración de la Cuenta</h3>
+                <div class="bg-blue-600 p-4 rounded-lg">
+                    <p class="text-sm">¿Necesitas ayuda?</p>
+                    <button class="mt-2 text-white bg-blue-700 hover:bg-blue-800 text-sm py-2 px-4 rounded-md">
+                        Contactar Soporte
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="history">
-            <strong>Historial de Transacciones:</strong>
-            <div id="transactionHistory"></div>
+        <div class="main-content">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Dashboard de Transacciones</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="wallet-card">
+                    <h3 class="font-semibold text-gray-700 text-lg">Usuario A</h3>
+                    <p class="text-2xl font-bold text-gray-900">450.00 MXN</p>
+                    <p class="text-sm text-gray-600 truncate">Pointer: $example.com/user-A</p>
+                    <div class="flex space-x-3 mt-2">
+                        <button class="flex-1 py-2 px-4 rounded-md btn-primary text-white text-sm">Seleccionar</button>
+                        <button class="flex-1 py-2 px-4 rounded-md bg-gray-200 text-gray-800 text-sm hover:bg-gray-300 transition-colors">Copiar Pointer</button>
+                    </div>
+                </div>
+
+                <div class="wallet-card">
+                    <h3 class="font-semibold text-gray-700 text-lg">Usuario B</h3>
+                    <p class="text-2xl font-bold text-gray-900">120.50 MXN</p>
+                    <p class="text-sm text-gray-600 truncate">Pointer: $example.com/user-B</p>
+                    <div class="flex space-x-3 mt-2">
+                        <button class="flex-1 py-2 px-4 rounded-md btn-primary text-white text-sm">Seleccionar</button>
+                        <button class="flex-1 py-2 px-4 rounded-md bg-gray-200 text-gray-800 text-sm hover:bg-gray-300 transition-colors">Copiar Pointer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-xl shadow-sm mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Nueva Transacción P2P</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-4">
+                            <label for="senderWallet" class="block text-sm mb-2">Billetera Origen</label>
+                            <select id="senderWallet" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Selecciona una billetera...</option>
+                                <option value="userA">$example.com/user-A (450.00 MXN)</option>
+                                <option value="userB">$example.com/user-B (120.50 MXN)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="senderAmount" class="block text-sm mb-2">Monto a Enviar (MXN)</label>
+                            <input type="number" id="senderAmount" placeholder="Ej: 100.00" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="mb-4">
+                            <label for="recipientPointer" class="block text-sm mb-2">Payment Pointer Destino</label>
+                            <input type="text" id="recipientPointer" placeholder="Ej: $ejemplo.com/maria" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                         <div class="mb-4">
+                            <label for="recipientName" class="block text-sm mb-2">Nombre del Destinatario (Opcional)</label>
+                            <input type="text" id="recipientName" placeholder="Ej: María García" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button class="py-2 px-6 rounded-md btn-secondary text-white">Limpiar</button>
+                    <button class="py-2 px-6 rounded-md btn-primary text-white text-lg font-semibold">Iniciar Envío P2P</button>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Actividad Reciente</h2>
+                <div class="bg-white p-6 rounded-xl shadow-sm h-64 overflow-y-auto">
+                    <div class="log-entry">
+                        <p class="text-gray-800">Transacción de 50.00 MXN de $example.com/user-A a $ejemplo.com/maria. <span class="text-green-600 font-medium">Completada.</span></p>
+                        <p class="text-xs text-gray-500">12:37:51 PM - 23/10/2023</p>
+                    </div>
+                    <div class="log-entry">
+                        <p class="text-gray-800">Intento de transacción de 25.00 MXN a $ejemplo.com/juan. <span class="text-red-600 font-medium">Fallida: Fondos insuficientes.</span></p>
+                        <p class="text-xs text-gray-500">11:05:00 AM - 23/10/2023</p>
+                    </div>
+                    <div class="log-entry">
+                        <p class="text-gray-800">Recepción de 100.00 MXN en $example.com/user-B desde $otrabilletera. <span class="text-green-600 font-medium">Completada.</span></p>
+                        <p class="text-xs text-gray-500">10:15:30 AM - 23/10/2023</p>
+                    </div>
+                    <div class="log-entry">
+                        <p class="text-gray-800">Transacción de 75.00 MXN de $example.com/user-B a $banco.com/cuenta. <span class="text-green-600 font-medium">Completada.</span></p>
+                        <p class="text-xs text-gray-500">09:40:00 AM - 23/10/2023</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        let wallets = [
-            { id: 0, balance: 100 },
-            { id: 1, balance: 50 },
-            { id: 2, balance: 75 }
-        ];
-
-        let transactions = [];
-
-        function populateWallets() {
-            const fromSelect = document.getElementById('from');
-            const toSelect = document.getElementById('to');
-            fromSelect.innerHTML = '';
-            toSelect.innerHTML = '';
-            wallets.forEach(w => {
-                fromSelect.innerHTML += `<option value="${w.id}">Wallet ${w.id} - ${w.balance}</option>`;
-                toSelect.innerHTML += `<option value="${w.id}">Wallet ${w.id} - ${w.balance}</option>`;
-            });
-        }
-
-        function showBalances() {
-            const balancesDiv = document.getElementById('walletBalances');
-            balancesDiv.innerHTML = wallets.map(w => `Wallet ${w.id}: ${w.balance}`).join('<br>');
-        }
-
-        function showHistory() {
-            const historyDiv = document.getElementById('transactionHistory');
-            historyDiv.innerHTML = transactions.map(t =>
-                `<div class="history-item">De Wallet ${t.from} → Wallet ${t.to}: ${t.amount}</div>`
-            ).join('');
-        }
-
-        function transfer() {
-            const from = +document.getElementById('from').value;
-            const to = +document.getElementById('to').value;
-            const amount = +document.getElementById('amount').value;
-            const msgDiv = document.getElementById('msg');
-
-            if (from === to) {
-                msgDiv.innerText = "No puedes transferir a la misma wallet";
-                msgDiv.style.color = "red";
-                return;
-            }
-            if (amount <= 0) {
-                msgDiv.innerText = "Monto inválido";
-                msgDiv.style.color = "red";
-                return;
-            }
-            if (wallets[from].balance < amount) {
-                msgDiv.innerText = "Saldo insuficiente";
-                msgDiv.style.color = "red";
-                return;
-            }
-
-            // Actualizar balances
-            wallets[from].balance -= amount;
-            wallets[to].balance += amount;
-
-            // Registrar transacción
-            transactions.push({ from, to, amount });
-
-            // Actualizar interfaz
-            populateWallets();
-            showBalances();
-            showHistory();
-
-            msgDiv.innerText = "Transferencia exitosa";
-            msgDiv.style.color = "green";
-        }
-
-        // Inicialización
-        populateWallets();
-        showBalances();
-        showHistory();
-    </script>
+    
 </body>
-
 </html>
