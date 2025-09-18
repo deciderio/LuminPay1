@@ -1,27 +1,27 @@
 # LuminPay1
 
-LuminPay1 es una plataforma de pagos digitales diseñada para facilitar transacciones rápidas,
-seguras y eficientes. Con una arquitectura modular y escalable, busca ofrecer soluciones innovadoras en el ecosistema financiero digital.
+LuminPay1 is a digital payments platform designed to enable fast, secure, and efficient transactions. With a modular and scalable architecture, it aims to provide innovative solutions within the digital financial ecosystem.
 
-## 🚀 Instalación
+## 🚀 Installation
 
-Para comenzar con LuminPay1, sigue estos pasos:
+To get started with LuminPay1, follow these steps:
 
-1. Clona el repositorio:
+1. Clone the repository:
 
-   # Clona el repositorio
+```bash
+# Clone the repository
 git clone https://github.com/deciderio/LuminPay1.git
 cd LuminPay1
 
-# Instala dependencias
+# Install dependencies
 npm install
 
-# Inicia el proyecto
+# Start the project
 npm start
+```
 
+2. Arrange the project folders as follows:
 
-2. Ordenar las carpetas del proyecto de la siguiente manera:
-   
 ```
 LuminaPay/
 ├── src/
@@ -29,37 +29,46 @@ LuminaPay/
 └── package-lock.json
 └── index.html
 ```
-3. # ¿Cual es el problema?
-    Integrar métodos de pago suele ser lento, costoso y poco flexible para comercios pequeños.
-    Experiencia de pago con fricción que genera abandono del carrito.
-    Dificultad para añadir nuevos métodos de pago sin reescribir el sistema.
-    Falta de seguridad y trazabilidad en soluciones existentes.
-4. # ¿Cual es la solucion?
-    Plataforma modular y extensible que permite conectar nuevas pasarelas de pago mediante adaptadores.
-    Checkout embebible y API pública (REST/GraphQL) para integraciones.
+
+3. # What is the problem?
+- Integrating payment methods is often slow, expensive, and inflexible for small merchants.
+- Payment experiences have friction that lead to cart abandonment.
+- Difficulty adding new payment methods without rewriting the system.
+- Lack of security and traceability in existing solutions.
+
+4. # What is the solution?
+- A modular and extensible platform that allows connecting new payment gateways via adapters.
+- Embeddable checkout and a public API (REST/GraphQL) for integrations.
+
 5. # Frontend
-   html
-   Javascript
+- HTML
+- JavaScript
+
 6. # Backend
-   Node.js + Express/NestJS
-7. # Beneficios
-   Integración rápida y sencilla para comercios.
-   Escalabilidad gracias a su arquitectura modular.
-   Menor coste de mantenimiento e integración.
-   Flexibilidad para añadir nuevos métodos de pago (ej. ILP/Open Payments).
-   Mayor seguridad y cumplimiento normativo.
-   Auditoría y trazabilidad de cada transacción.
-8. # Arquitectura
-   Cliente (web/mobile)
-   API OpenPayments (auth + rate limiting)
-   Servicios backend
-   Pagos (orquestador)
-   Autenticación 
- 9. # Funciones indispensables (MVP)
-   Registro y autenticación de usuarios/comercios.
-   API REST/GraphQL para crear pagos.
-10. # Responsabilidades del equipo
-   Product Manager: roadmap, requisitos, priorización.
-   Tech Lead / Arquitecto: diseño de arquitectura, estándares y seguridad.
-   Backend Engineers (1–2): API, orquestador, DB, adaptadores (Stripe, ILP).
-   Frontend Engineer (1): dashboard y SDK embebible (checkout).
+- Node.js + Express/NestJS
+
+7. # Benefits
+- Fast and easy integration for merchants.
+- Scalability thanks to its modular architecture.
+- Lower maintenance and integration costs.
+- Flexibility to add new payment methods (e.g., ILP / Open Payments).
+- Improved security and regulatory compliance.
+- Auditability and traceability for every transaction.
+
+8. # Architecture
+- Client (web / mobile)
+- OpenPayments API (auth + rate limiting)
+- Backend services
+  - Payments (orchestrator)
+  - Authentication
+
+9. # Essential features (MVP)
+- Registration and authentication for users/merchants.
+- REST/GraphQL API to create payments.
+
+10. # Team responsibilities
+- **Product Manager:** roadmap, requirements, prioritization.  
+- **Tech Lead / Architect:** architecture design, standards, and security.  
+- **Backend Engineers (1–2):** API, orchestrator, DB, adapters (Stripe, ILP).  
+- **Frontend Engineer (1):** dashboard and embeddable SDK (checkout).  
+y SDK embebible (checkout).
